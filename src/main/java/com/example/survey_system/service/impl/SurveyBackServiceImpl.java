@@ -1,6 +1,7 @@
 package com.example.survey_system.service.impl;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import com.example.survey_system.repository.SurveyBackDao;
 import com.example.survey_system.service.ifs.SurveyBackService;
 import com.example.survey_system.vo.AddTitleRequest;
 import com.example.survey_system.vo.AddTitleResponse;
+import com.example.survey_system.vo.DeleteTitleRequest;
+import com.example.survey_system.vo.DeleteTitleResponse;
 
 
 @Service
@@ -33,6 +36,32 @@ public class SurveyBackServiceImpl implements SurveyBackService{
 		String tStart = request.getStart_time();
 		String tEnd = request.getEnd_time();
 		
+		//	日期格式規制	
+		if(!tStart.matches(dateFormat) || !tEnd.matches(dateFormat)) {
+			
+			return new AddTitleResponse(RtnCode.DATEFORMAT_ERROR.getMessage());
+		}
+		
+//		------------------------------------------
+		//	localDate轉換器
+		//	DateTimeFormatter: 將使用者輸入的日期字串解析為 LocalDate	
+		LocalDate today = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate tStartLocal = LocalDate.parse(tStart, formatter);        
+        LocalDate tEndLocal = LocalDate.parse(tEnd, formatter);
+        
+//        if(tStartLocal.isAfter(today)) {
+//			return new AddTitleResponse("問卷未開啟!!");
+//
+//			
+//        }
+//        else if(tStartLocal.isBefore(today)){
+//        	
+//        	return new AddTitleResponse("問卷以結束");
+//        }
+
+//		-------------------------------------------
+		
 		List<SurveyBack> survey = request.getAddSurvey();
 		
 		if(CollectionUtils.isEmpty(survey) && (!StringUtils.hasText(tStart) || !StringUtils.hasText(tEnd)
@@ -41,11 +70,6 @@ public class SurveyBackServiceImpl implements SurveyBackService{
 			return new AddTitleResponse(RtnCode.CANNOT_EMPTY.getMessage());
 		}
 		
-		//	日期格式規制	
-		if(!tStart.matches(dateFormat) || !tEnd.matches(dateFormat)) {
-			
-			return new AddTitleResponse(RtnCode.DATEFORMAT_ERROR.getMessage());
-		}
 		
 		//	無輸入日期: 用List"addSurvey"走預設流程	// 輸入日期: 直接變數設置
 		if(!StringUtils.hasText(tStart) || !StringUtils.hasText(tEnd)) {
@@ -66,11 +90,21 @@ public class SurveyBackServiceImpl implements SurveyBackService{
 		//	手動輸入日期流程	
 		else {
 			
-			backDao.addSurveyTitle(title, tStart, tEnd);
+			backDao.addSurveyTitle(title, tStartLocal, tEndLocal);
 		}
 		
 		
 		return new AddTitleResponse(RtnCode.SUCCESSFUL.getMessage());
 
 	}
+
+
+//	@Override
+//	public DeleteTitleResponse deleteTitle(DeleteTitleRequest request) {
+//
+//		return new DeleteTitleResponse("2");
+//	}
+
+
+
 }
