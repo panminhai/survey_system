@@ -1,11 +1,16 @@
 package com.example.survey_system.vo;
 
-public class addTitleResponse {
+public class AddTitleResponse {
 	
 	private String message;
 
 	
-	public addTitleResponse(String message) {
+	
+	public AddTitleResponse() {
+		super();
+	}
+
+	public AddTitleResponse(String message) {
 		super();
 		this.message = message;
 	}
