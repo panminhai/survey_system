@@ -3,7 +3,9 @@ package com.example.survey_system.service.impl;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
+import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -99,11 +101,35 @@ public class SurveyBackServiceImpl implements SurveyBackService{
 	}
 
 
-//	@Override
-//	public DeleteTitleResponse deleteTitle(DeleteTitleRequest request) {
-//
-//		return new DeleteTitleResponse("2");
-//	}
+	@Override
+	public DeleteTitleResponse deleteTitle(DeleteTitleRequest request) {
+
+		List<Integer> surveyNumber = request.getSurveyNumber();
+		
+		//	沒選擇刪除對象: 不做任何動作	
+		if(CollectionUtils.isEmpty(surveyNumber)) {
+			
+			return new DeleteTitleResponse ("Nothing to Delete!");
+		}
+		
+		for(Integer item : surveyNumber) {
+		
+			Optional<SurveyBack> op = backDao.findById(item);
+			
+			//	資料庫找到對應之問卷
+			if(op.isPresent()) {
+				
+				backDao.deleteById(item);	
+			}
+			else {
+				return new DeleteTitleResponse(RtnCode.NOT_FOUND.getMessage());
+			}
+
+			
+		}
+		
+		return new DeleteTitleResponse(RtnCode.SUCCESSFUL.getMessage());
+	}
 
 
 

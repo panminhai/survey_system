@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.survey_system.service.ifs.SurveyBackService;
 import com.example.survey_system.vo.AddTitleRequest;
 import com.example.survey_system.vo.AddTitleResponse;
+import com.example.survey_system.vo.DeleteTitleRequest;
+import com.example.survey_system.vo.DeleteTitleResponse;
 
 
 @RestController
@@ -22,6 +24,12 @@ public class SurveyBackController {
 	public AddTitleResponse addTitle(@RequestBody AddTitleRequest request) {
 		
 		return surveyBackService.addTitle(request);
+	}
+	
+	@PostMapping(value = "delete_title")
+	public DeleteTitleResponse deleteTitle(@RequestBody DeleteTitleRequest request) {
+		
+		return surveyBackService.deleteTitle(request);
 	}
 	
 	

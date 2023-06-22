@@ -9,7 +9,7 @@ public interface SurveyBackService {
 	
 	public AddTitleResponse addTitle(AddTitleRequest request);
 	
-//	public DeleteTitleResponse deleteTitle(DeleteTitleRequest request);
+	public DeleteTitleResponse deleteTitle(DeleteTitleRequest request);
 	
 		
 	

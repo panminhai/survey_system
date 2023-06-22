@@ -1,28 +1,30 @@
 package com.example.survey_system.vo;
 
+import java.util.List;
+
+
 public class DeleteTitleRequest {
 	
-	private int a;
-
+	private List<Integer> surveyNumber;
 	
-	public DeleteTitleRequest(int a) {
-		super();
-		this.a = a;
-	}
+	
 
 	public DeleteTitleRequest() {
 		super();
 	}
 
-	public int getA() {
-		return a;
+	public DeleteTitleRequest(List<Integer> surveyNumber) {
+		super();
+		this.surveyNumber = surveyNumber;
 	}
 
-	public void setA(int a) {
-		this.a = a;
+	public List<Integer> getSurveyNumber() {
+		return surveyNumber;
 	}
-	
-	
-	
+
+	public void setSurveyNumber(List<Integer> surveyNumber) {
+		this.surveyNumber = surveyNumber;
+	}
+
 
 }
