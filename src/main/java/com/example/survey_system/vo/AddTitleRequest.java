@@ -13,10 +13,13 @@ public class AddTitleRequest {
 	 */
 	private List<SurveyBack> addSurvey;
 	
+	
 	/*
 	 * è“®—A“ü“úŠú
 	 */
 	private String title;
+	
+	private String comment;
 	
 	//	‘O’[: i˜Ò“I‘—¿çz¬jasonŠi®
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -24,6 +27,8 @@ public class AddTitleRequest {
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private String end_time;
+	
+	private int status;
 	
 	
 	public AddTitleRequest() {
@@ -35,13 +40,14 @@ public class AddTitleRequest {
 		this.addSurvey = addSurvey;
 	}
 	
-	
 
-	public AddTitleRequest(String title, String start_time, String end_time) {
+	public AddTitleRequest(String title, String comment, String start_time, String end_time, int status) {
 		super();
 		this.title = title;
+		this.comment = comment;
 		this.start_time = start_time;
 		this.end_time = end_time;
+		this.status = status;
 	}
 
 	public List<SurveyBack> getAddSurvey() {
@@ -75,6 +81,24 @@ public class AddTitleRequest {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+
 	
 	
 	

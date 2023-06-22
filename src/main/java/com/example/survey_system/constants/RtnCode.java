@@ -15,14 +15,13 @@ public enum RtnCode {
 
 	CAN_NOT_DELETE("400","Order Can not Delete !"),
 	DELETE_OTHER_USER("400", "Can't delete other user account!!"),
-	INVENTORY_NOT_ENOUGH("400","Inventory not enough !"),
-	ACCOUNT_PWD_ERROR("401","Account or password error !"),
 	PLEASE_LOGIN_FIRST("400","Please Login First !"),
 //	------------------------------------------------------
 //	surveyProject
     NOTITLE("402","Please insert Survey Title!"),
+    START_END_DATE("402", "StartTime should earlier then EndTime!!"),
     DATEFORMAT_ERROR("402","Please insert correct DateFromat!!");
-
+	
 	
 //	------------------------------------------------------
 

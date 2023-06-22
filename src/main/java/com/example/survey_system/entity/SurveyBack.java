@@ -24,6 +24,9 @@ public class SurveyBack {
 	@Column(name = "title")
 	private String title;
 	
+	@Column(name = "comment")
+	private String comment;
+	
 	//問卷狀態 0: 未開啟, 1: 啟用中, 2: 已關閉
 	@Column(name = "status")
 	private int status;
@@ -44,20 +47,25 @@ public class SurveyBack {
 	public SurveyBack() {
 		super();
 	}
-
 	
-	public SurveyBack(int number, String title, int status, LocalDate start_time, LocalDate end_time) {
+
+	public SurveyBack(int number, String title, String comment, int status, LocalDate start_time, LocalDate end_time) {
 		super();
 		this.number = number;
 		this.title = title;
+		this.comment = comment;
 		this.status = status;
 		this.start_time = start_time;
 		this.end_time = end_time;
 	}
+	
 
+//	public SurveyBack(String describe) {
+//		super();
+//		this.describe = describe;
+//	}
+	
 //	-------------------------------------------------
-
-
 
 
 	public int getNumber() {
@@ -105,6 +113,19 @@ public class SurveyBack {
 		this.end_time = end_time;
 	}
 
+
+	public String getComment() {
+		return comment;
+	}
+
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+
+
+	
 
 
 	
