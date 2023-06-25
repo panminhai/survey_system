@@ -2,6 +2,7 @@ package com.example.survey_system.service.impl;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +20,9 @@ import com.example.survey_system.vo.AddTitleRequest;
 import com.example.survey_system.vo.AddTitleResponse;
 import com.example.survey_system.vo.DeleteTitleRequest;
 import com.example.survey_system.vo.DeleteTitleResponse;
+import com.example.survey_system.vo.SearchTitleRequest;
+import com.example.survey_system.vo.SearchTitleResponse;
+import com.mysql.cj.xdevapi.Result;
 
 
 @Service
@@ -82,10 +86,12 @@ public class SurveyBackServiceImpl implements SurveyBackService{
 			//	localDate轉換器
 			//	DateTimeFormatter: 將使用者輸入的日期字串解析為 LocalDate	
 			LocalDate today = LocalDate.now();
+			//	多做一個LocalDate: today + 7天(可以做預設模式)		
 	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	        LocalDate tStartLocal = LocalDate.parse(tStart, formatter);        
 	        LocalDate tEndLocal = LocalDate.parse(tEnd, formatter);
 	        
+	        //	防呆: 結束時間一定要晚於開始時間        
 	        if(!tStartLocal.isBefore(tEndLocal)) {
 	        	
 	        	return new AddTitleResponse(RtnCode.START_END_DATE.getMessage());
@@ -156,8 +162,82 @@ public class SurveyBackServiceImpl implements SurveyBackService{
 	}
 
 
+	@Override
+	public SearchTitleResponse searchTitle(SearchTitleRequest request) {
+		
+		String inputName = request.getTitleName();
+		
+		
+		List<SurveyBack> resAll = backDao.findAll();
+		
+		if(!StringUtils.hasText(inputName)) {
+		
+			return new SearchTitleResponse(resAll, "All Survey is here!");
+		}
+		
+		List<SurveyBack> result = backDao.findByTitleLike(inputName);
+	
+		if(CollectionUtils.isEmpty(result)) {
+			
+			return new SearchTitleResponse(RtnCode.NOT_FOUND.getMessage());
+			
+		}
+		
+		return new SearchTitleResponse(result, RtnCode.SUCCESSFUL.getMessage());
+	}
+
+
+	@Override
+	public SearchTitleResponse searchDate(SearchTitleRequest request) {
+
+		// 日期輸入格式
+		String dateFormat = "\\d{4}-\\d{2}-\\d{2}";
+		
+		String tStart = request.getStart_time();
+		String tEnd = request.getEnd_time();
+		
+		// 確保開始到結束日期都有輸入		
+		if(!StringUtils.hasText(tStart) || !StringUtils.hasText(tEnd)) {
+			
+			return new SearchTitleResponse(RtnCode.DATE_EMPTY.getMessage());
+		}
+		
+		//	日期格式規制	
+		if(!tStart.matches(dateFormat) || !tEnd.matches(dateFormat)) {
+			
+			return new SearchTitleResponse(RtnCode.DATEFORMAT_ERROR.getMessage());
+		}
+		
+		//-----	localDate轉換器----------------------------//
+		//	DateTimeFormatter: 將使用者輸入的日期字串解析為 LocalDate	
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate tStartLocal = LocalDate.parse(tStart, formatter);        
+        LocalDate tEndLocal = LocalDate.parse(tEnd, formatter);
+		//-----------------------------------------------//
+ 
+        
+        //	防呆: 結束時間一定要晚於開始時間        
+        if(!tStartLocal.isBefore(tEndLocal)) {
+        	
+        	return new SearchTitleResponse(RtnCode.START_END_DATE.getMessage());
+        }
+        
+		List<SurveyBack> result = backDao.findByTitleTime(tStartLocal, tEndLocal);
+		
+		//	沒找到結果	
+		if(CollectionUtils.isEmpty(result)) {
+			
+			return new SearchTitleResponse(RtnCode.NOT_FOUND.getMessage());
+		}
+		else {
+			
+			return new SearchTitleResponse(result, RtnCode.SUCCESSFUL.getMessage());
+		}
+	}
 
 }
+
+
 //=======
 //}
 //>>>>>>> addTitle

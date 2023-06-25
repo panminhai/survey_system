@@ -11,6 +11,8 @@ import com.example.survey_system.vo.AddTitleRequest;
 import com.example.survey_system.vo.AddTitleResponse;
 import com.example.survey_system.vo.DeleteTitleRequest;
 import com.example.survey_system.vo.DeleteTitleResponse;
+import com.example.survey_system.vo.SearchTitleRequest;
+import com.example.survey_system.vo.SearchTitleResponse;
 
 
 @RestController
@@ -32,5 +34,16 @@ public class SurveyBackController {
 		return surveyBackService.deleteTitle(request);
 	}
 	
+	@PostMapping(value = "search_title")
+	public SearchTitleResponse searchTitle(@RequestBody SearchTitleRequest request) {
+		
+		return surveyBackService.searchTitle(request);
+	}
+	
+	@PostMapping(value = "search_date")
+	public SearchTitleResponse searchDate(@RequestBody SearchTitleRequest request) {
+		
+		return surveyBackService.searchDate(request);
+	}
 	
 }

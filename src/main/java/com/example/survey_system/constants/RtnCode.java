@@ -20,6 +20,7 @@ public enum RtnCode {
 //	surveyProject
     NOTITLE("402","Please insert Survey Title!"),
     START_END_DATE("402", "StartTime should earlier then EndTime!!"),
+    DATE_EMPTY("402", "Please insert Date First!"),
     DATEFORMAT_ERROR("402","Please insert correct DateFromat!!");
 	
 	
