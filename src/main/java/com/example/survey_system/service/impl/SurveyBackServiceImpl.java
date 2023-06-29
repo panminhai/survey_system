@@ -22,6 +22,7 @@ import com.example.survey_system.vo.DeleteTitleRequest;
 import com.example.survey_system.vo.DeleteTitleResponse;
 import com.example.survey_system.vo.SearchTitleRequest;
 import com.example.survey_system.vo.SearchTitleResponse;
+import com.example.survey_system.vo.ShowAllResponse;
 import com.mysql.cj.xdevapi.Result;
 
 
@@ -40,53 +41,76 @@ public class SurveyBackServiceImpl implements SurveyBackService{
 		
 		String title = request.getTitle();
 		String comment = request.getComment();
+		
+		LocalDate today = LocalDate.now();
+		
+		//	多做一個LocalDate: today + 7天(可以做預設模式)	
+		LocalDate deadLine = today.plusDays(7);
 		String tStart = request.getStart_time();
 		String tEnd = request.getEnd_time();
 		int status = request.getStatus();		
 		
 
-		
-		List<SurveyBack> survey = request.getAddSurvey();
-		
-		if(CollectionUtils.isEmpty(survey) && (!StringUtils.hasText(tStart) || !StringUtils.hasText(tEnd)
-				|| !StringUtils.hasText(title))) {
-			
-			return new AddTitleResponse(RtnCode.CANNOT_EMPTY.getMessage());
-		}
+//		SurveyBack陣列加入功能
+//		List<SurveyBack> survey = request.getAddSurvey();
+//		if(CollectionUtils.isEmpty(survey) && (!StringUtils.hasText(tStart) || !StringUtils.hasText(tEnd)
+//				|| !StringUtils.hasText(title))) {
+//			
+//			return new AddTitleResponse(RtnCode.CANNOT_EMPTY.getMessage());
+//		}
 		
 		
 		//	無輸入日期: 用List"addSurvey"走預設流程	// 輸入日期: 直接變數設置
 		if(!StringUtils.hasText(tStart) || !StringUtils.hasText(tEnd)) {
 			
 			//	預設流程(今天日期~7天後)	//status: 直接啟用	
-			for(SurveyBack item : survey) {
-				item.setStatus(1);
-				// 標題一定要有, 狀態: 以生成時間為準啟用, 統計: 前端用(暫定)			
-				if(!StringUtils.hasText(item.getTitle())) {
-					
-					return new AddTitleResponse(RtnCode.CANNOT_EMPTY.getMessage());
-				}
+//			SurveyBack陣列加入功能
+//	        for(SurveyBack item : survey) {
+//	        	if(!StringUtils.hasText(item.getTitle())) {
+//					
+//					return new AddTitleResponse(RtnCode.CANNOT_EMPTY.getMessage());
+//				}	
+			if(!StringUtils.hasText(title)) {
 				
+				return new AddTitleResponse(RtnCode.CANNOT_EMPTY.getMessage());
 			}
-		
-			backDao.saveAll(survey);
+			
+			else {
+				
+				status = 1;
+				backDao.addTitleWithStatus(title, comment, status, today, deadLine);
+ 
+			}
 		}
+		
+//		SurveyBack陣列加入功能
+//			for(SurveyBack item : survey) {
+//				item.setStatus(1);
+//				// 標題一定要有, 狀態: 以生成時間為準啟用, 統計: 前端用(暫定)			
+//				if(!StringUtils.hasText(item.getTitle())) {
+//					
+//					return new AddTitleResponse(RtnCode.CANNOT_EMPTY.getMessage());
+//				}
+//				
+//			}
+		
+//			backDao.saveAll(survey);
+//		}
 		
 		//	手動輸入日期流程	
 		else {
 			
-//<<<<<<< HEAD
-//=======
+
 			//	日期格式規制	
 			if(!tStart.matches(dateFormat) || !tEnd.matches(dateFormat)) {
 				
 				return new AddTitleResponse(RtnCode.DATEFORMAT_ERROR.getMessage());
 			}
 			
+
+
 			//	localDate轉換器
 			//	DateTimeFormatter: 將使用者輸入的日期字串解析為 LocalDate	
-			LocalDate today = LocalDate.now();
-			//	多做一個LocalDate: today + 7天(可以做預設模式)		
 	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	        LocalDate tStartLocal = LocalDate.parse(tStart, formatter);        
 	        LocalDate tEndLocal = LocalDate.parse(tEnd, formatter);
@@ -122,6 +146,7 @@ public class SurveyBackServiceImpl implements SurveyBackService{
 
 	        }
 //>>>>>>> addTitle
+	        
 		}
 		
 		
@@ -233,6 +258,24 @@ public class SurveyBackServiceImpl implements SurveyBackService{
 			
 			return new SearchTitleResponse(result, RtnCode.SUCCESSFUL.getMessage());
 		}
+	}
+	
+	@Override
+	public ShowAllResponse showAllSurvey() {
+
+		List<SurveyBack> allSurvey = backDao.findAll();
+		
+		if(!CollectionUtils.isEmpty(allSurvey)) {
+			
+			return new ShowAllResponse(allSurvey, RtnCode.SUCCESSFUL.getMessage());
+		}
+		
+		else {
+			
+			return new ShowAllResponse(RtnCode.NOT_FOUND.getMessage());
+
+		}
+		
 	}
 
 }

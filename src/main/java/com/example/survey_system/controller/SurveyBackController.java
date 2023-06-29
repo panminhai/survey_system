@@ -13,6 +13,7 @@ import com.example.survey_system.vo.DeleteTitleRequest;
 import com.example.survey_system.vo.DeleteTitleResponse;
 import com.example.survey_system.vo.SearchTitleRequest;
 import com.example.survey_system.vo.SearchTitleResponse;
+import com.example.survey_system.vo.ShowAllResponse;
 
 
 @RestController
@@ -22,6 +23,8 @@ public class SurveyBackController {
 	@Autowired
 	private SurveyBackService surveyBackService;
 	
+	
+
 	@PostMapping(value = "add_title")
 	public AddTitleResponse addTitle(@RequestBody AddTitleRequest request) {
 		
@@ -45,5 +48,12 @@ public class SurveyBackController {
 		
 		return surveyBackService.searchDate(request);
 	}
+	
+	@PostMapping(value = "show_all_survey")
+	public ShowAllResponse showAllSurvey() {
+		
+		return surveyBackService.showAllSurvey();
+	}
+
 	
 }

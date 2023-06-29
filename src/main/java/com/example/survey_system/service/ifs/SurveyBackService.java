@@ -6,8 +6,11 @@ import com.example.survey_system.vo.DeleteTitleRequest;
 import com.example.survey_system.vo.DeleteTitleResponse;
 import com.example.survey_system.vo.SearchTitleRequest;
 import com.example.survey_system.vo.SearchTitleResponse;
+import com.example.survey_system.vo.ShowAllResponse;
 
 public interface SurveyBackService {
+	
+	public ShowAllResponse showAllSurvey();
 	
 	public AddTitleResponse addTitle(AddTitleRequest request);
 	

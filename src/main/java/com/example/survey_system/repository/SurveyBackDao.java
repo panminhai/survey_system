@@ -55,6 +55,7 @@ public interface SurveyBackDao extends JpaRepository <SurveyBack, Integer>{
 			@Param("inputSTime") LocalDate tStartLocal,
 			@Param("inputETime") LocalDate tEndLocal);
 	
+	public List<SurveyBack> findAll();
 	
 	
 }
