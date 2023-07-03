@@ -57,5 +57,16 @@ public interface SurveyBackDao extends JpaRepository <SurveyBack, Integer>{
 	
 	public List<SurveyBack> findAll();
 	
+//	問卷開放時，不能刪除題目(survey_question)的Dao
+//	@Query(value = "select start_time, end_time from survey_title")
+//	
+//	
+//	public List<SurveyBack> findEndTimebyNumber(Integer Num);
+//	
+	
+	
+
+
+	
 	
 }

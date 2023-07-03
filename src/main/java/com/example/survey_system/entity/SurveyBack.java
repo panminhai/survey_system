@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 @Table(name = "survey_title")
 public class SurveyBack {
 	
@@ -88,7 +87,7 @@ public class SurveyBack {
 	}
 
 
-	public int isStatus() {
+	public int getStatus() {
 		return status;
 	}
 

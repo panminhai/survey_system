@@ -6,11 +6,10 @@ public class AddQuestionRequest {
 	
 	private String question;
 
-	// šd‘I
-	private String option;
+	// šd•¡‘I
+	private String options;
 	
-	// •¡‘I
-	private List<String> options;
+	private boolean be_write;
 	
 	private String category;
 	
@@ -20,15 +19,13 @@ public class AddQuestionRequest {
 	}
 
 
-
-	public AddQuestionRequest(String question, String option, List<String> options, String category) {
+	public AddQuestionRequest(String question, String options, boolean be_write, String category) {
 		super();
 		this.question = question;
-		this.option = option;
 		this.options = options;
+		this.be_write = be_write;
 		this.category = category;
 	}
-
 
 
 	public String getQuestion() {
@@ -39,13 +36,6 @@ public class AddQuestionRequest {
 		this.question = question;
 	}
 
-	public String getOption() {
-		return option;
-	}
-
-	public void setOption(String option) {
-		this.option = option;
-	}
 
 	public String getCategory() {
 		return category;
@@ -55,13 +45,27 @@ public class AddQuestionRequest {
 		this.category = category;
 	}
 
-	public List<String> getOptions() {
+
+
+	public String getOptions() {
 		return options;
 	}
 
-	public void setOptions(List<String> options) {
+
+	public void setOptions(String options) {
 		this.options = options;
 	}
+
+
+	public boolean isBe_write() {
+		return be_write;
+	}
+
+	public void setBe_write(boolean be_write) {
+		this.be_write = be_write;
+	}
+	
+	
 	
 	
 	

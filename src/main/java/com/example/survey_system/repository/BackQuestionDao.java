@@ -1,5 +1,7 @@
 package com.example.survey_system.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,11 +14,17 @@ public interface BackQuestionDao extends JpaRepository <BackQuestion, Integer>{
 
 	@Transactional
 	@Modifying
-	@Query(value = "insert into survey_question(question,category)" + 
-	"select :inputQuestion, :inputCategory", nativeQuery = true)
+	@Query(value = "insert into survey_question(question,options,category,be_write)" + 
+	"select :inputQuestion, :inputOptions, :inputCategory, :inputBeWrite", nativeQuery = true)
 	public int addQuestion(
 			@Param("inputQuestion") String inputQuestion,
-			@Param("inputCategory")String inputCategory);
+			@Param("inputOptions") String inputOptions,
+			@Param("inputCategory")String inputCategory,
+			@Param("inputBeWrite")boolean inputBeWrite);
+	
+	
+//	public int addQuestionSingleOption();
 		
+	
 	
 }
