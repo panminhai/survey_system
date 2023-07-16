@@ -11,6 +11,8 @@ import com.example.survey_system.vo.AddQuestionRequest;
 import com.example.survey_system.vo.AddQuestionResponse;
 import com.example.survey_system.vo.DeleteQuestionRequest;
 import com.example.survey_system.vo.DeleteQuestionResponse;
+import com.example.survey_system.vo.UpdateQuestionRequest;
+import com.example.survey_system.vo.UpdateQuestionResponse;
 
 @RestController
 @CrossOrigin
@@ -31,6 +33,12 @@ public class BackQuestionController {
 	public DeleteQuestionResponse deleteQuestion(@RequestBody DeleteQuestionRequest request) {
 		
 		return backQuestionService.deleteQuestion(request);
+	}
+	
+	@PostMapping(value = "update_question")
+	public UpdateQuestionResponse updateQuestion(@RequestBody UpdateQuestionRequest request) {
+		
+		return backQuestionService.updateQuestion(request);
 	}
 	
 }

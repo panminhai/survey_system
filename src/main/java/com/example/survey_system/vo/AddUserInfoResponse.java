@@ -1,16 +1,15 @@
 package com.example.survey_system.vo;
 
-public class AddQuestionResponse {
-
+public class AddUserInfoResponse {
 	
 	private String message;
 	
 	
-	public AddQuestionResponse() {
+	public AddUserInfoResponse() {
 		super();
 	}
 
-	public AddQuestionResponse(String message) {
+	public AddUserInfoResponse(String message) {
 		super();
 		this.message = message;
 	}
@@ -22,7 +21,8 @@ public class AddQuestionResponse {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+
 	
 	
-	
+
 }

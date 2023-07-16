@@ -29,10 +29,11 @@ public interface SurveyBackDao extends JpaRepository <SurveyBack, Integer>{
 	
 	@Transactional
 	@Modifying
-	@Query(value = "insert into survey_title(title,comment,status,start_time,end_time) " +
-			" select :inputTitle, :inputComment, :inputStatus, :inputStartTime, :inputEndTime ", nativeQuery = true)
+	@Query(value = "insert into survey_title(title,t_number,comment,status,start_time,end_time) " +
+			" select :inputTitle, :inputTNumber, :inputComment, :inputStatus, :inputStartTime, :inputEndTime ", nativeQuery = true)
 	public int addTitleWithStatus(
 			@Param("inputTitle") String inputTitle,
+			@Param("inputTNumber") int inputTNumber,
 			@Param("inputComment") String inputComment,
 			@Param("inputStatus") int inputStatus,
 			@Param("inputStartTime") LocalDate tStartLocal,

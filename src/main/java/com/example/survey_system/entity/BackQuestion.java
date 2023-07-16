@@ -16,9 +16,15 @@ public class BackQuestion {
 	@Column(name = "number")
 	private int number;
 	
+	@Column(name = "q_number")
+	private int qNumber;
+	
 	
 	@Column(name = "question")
 	private String question;
+	
+	@Column(name = "options")
+	private String options;
 	
 	
 	@Column(name = "category")
@@ -30,10 +36,12 @@ public class BackQuestion {
 	}
 
 
-	public BackQuestion(int number, String question, String category) {
+	public BackQuestion(int number, int q_number, String question, String options, String category) {
 		super();
 		this.number = number;
+		this.qNumber = q_number;
 		this.question = question;
+		this.options = options;
 		this.category = category;
 	}
 
@@ -66,6 +74,31 @@ public class BackQuestion {
 	public void setCategory(String category) {
 		this.category = category;
 	}
+
+
+	public int getQ_number() {
+		return qNumber;
+	}
+
+
+	public void setQ_number(int q_number) {
+		this.qNumber = q_number;
+	}
+
+
+
+	public String getOptions() {
+		return options;
+	}
+
+
+
+	public void setOptions(String options) {
+		this.options = options;
+	}
+	
+	
+	
 	
 	
 	

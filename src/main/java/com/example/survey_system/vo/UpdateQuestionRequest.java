@@ -1,32 +1,30 @@
 package com.example.survey_system.vo;
 
-import java.util.List;
-
-public class AddQuestionRequest {
+public class UpdateQuestionRequest {
 	
 	private String question;
+	
+	private int number;
 
 	// šd•¡‘I
 	private String options;
-	
-	private int qNumber;
 	
 	private boolean be_write;
 	
 	private String category;
 	
-
-	public AddQuestionRequest() {
+	
+	public UpdateQuestionRequest() {
 		super();
 	}
 
+	
 
-
-	public AddQuestionRequest(String question, String options, int qNumber, boolean be_write, String category) {
+	public UpdateQuestionRequest(String question, int number, String options, boolean be_write, String category) {
 		super();
 		this.question = question;
+		this.number = number;
 		this.options = options;
-		this.qNumber = qNumber;
 		this.be_write = be_write;
 		this.category = category;
 	}
@@ -41,26 +39,13 @@ public class AddQuestionRequest {
 		this.question = question;
 	}
 
-
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
-
-
 	public String getOptions() {
 		return options;
 	}
 
-
 	public void setOptions(String options) {
 		this.options = options;
 	}
-
 
 	public boolean isBe_write() {
 		return be_write;
@@ -70,18 +55,25 @@ public class AddQuestionRequest {
 		this.be_write = be_write;
 	}
 
-
-	public int getqNumber() {
-		return qNumber;
+	public String getCategory() {
+		return category;
 	}
 
+	public void setCategory(String category) {
+		this.category = category;
+	}
 
-	public void setqNumber(int qNumber) {
-		this.qNumber = qNumber;
+	public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
 	}
 	
 	
 	
 	
 	
+
 }

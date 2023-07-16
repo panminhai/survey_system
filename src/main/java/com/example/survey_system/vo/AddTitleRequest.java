@@ -13,12 +13,10 @@ public class AddTitleRequest {
 	 */
 	private List<SurveyBack> addSurvey;
 	
-	
-	/*
-	 * è“®—A“ü“úŠú
-	 */
 	private String title;
 	
+	private int tNumber;
+
 	private String comment;
 	
 	//	‘O’[: i˜Ò“I‘—¿çz¬jasonŠi®
@@ -41,17 +39,31 @@ public class AddTitleRequest {
 	}
 	
 
-	public AddTitleRequest(String title, String comment, String start_time, String end_time, int status) {
+
+
+//	public AddTitleRequest(String title, String comment, String start_time, String end_time, int status) {
+//		super();
+//		this.title = title;
+//		this.comment = comment;
+//		this.start_time = start_time;
+//		this.end_time = end_time;
+//		this.status = status;
+//	}
+
+	
+
+	public List<SurveyBack> getAddSurvey() {
+		return addSurvey;
+	}
+
+	public AddTitleRequest(String title, int tNumber, String comment, String start_time, String end_time, int status) {
 		super();
 		this.title = title;
+		this.tNumber = tNumber;
 		this.comment = comment;
 		this.start_time = start_time;
 		this.end_time = end_time;
 		this.status = status;
-	}
-
-	public List<SurveyBack> getAddSurvey() {
-		return addSurvey;
 	}
 
 	public void setAddSurvey(List<SurveyBack> addSurvey) {
@@ -98,6 +110,18 @@ public class AddTitleRequest {
 		this.comment = comment;
 	}
 
+	public int gettNumber() {
+		return tNumber;
+	}
+
+	public void settNumber(int tNumber) {
+		this.tNumber = tNumber;
+	}
+
+
+
+
+	
 
 	
 	

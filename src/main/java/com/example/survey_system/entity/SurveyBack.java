@@ -19,6 +19,8 @@ public class SurveyBack {
 	@Column(name = "number")
 	private int number;
 	
+	@Column(name = "t_number")
+	private int t_number;
 	
 	@Column(name = "title")
 	private String title;
@@ -47,16 +49,20 @@ public class SurveyBack {
 		super();
 	}
 	
-
-	public SurveyBack(int number, String title, String comment, int status, LocalDate start_time, LocalDate end_time) {
+	public SurveyBack(int number, int t_number, String title, String comment, int status, LocalDate start_time,
+			LocalDate end_time) {
 		super();
 		this.number = number;
+		this.t_number = t_number;
 		this.title = title;
 		this.comment = comment;
 		this.status = status;
 		this.start_time = start_time;
 		this.end_time = end_time;
 	}
+
+
+	
 	
 
 //	public SurveyBack(String describe) {
@@ -65,6 +71,7 @@ public class SurveyBack {
 //	}
 	
 //	-------------------------------------------------
+
 
 
 	public int getNumber() {
@@ -122,6 +129,18 @@ public class SurveyBack {
 		this.comment = comment;
 	}
 
+
+	public int getT_number() {
+		return t_number;
+	}
+
+
+	public void setT_number(int t_number) {
+		this.t_number = t_number;
+	}
+
+	
+	
 
 
 	

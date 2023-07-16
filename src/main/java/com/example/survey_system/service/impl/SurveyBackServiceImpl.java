@@ -41,6 +41,8 @@ public class SurveyBackServiceImpl implements SurveyBackService{
 		
 		String title = request.getTitle();
 		String comment = request.getComment();
+		int tNum = request.gettNumber();
+		
 		
 		LocalDate today = LocalDate.now();
 		
@@ -78,7 +80,7 @@ public class SurveyBackServiceImpl implements SurveyBackService{
 			else {
 				
 				status = 1;
-				backDao.addTitleWithStatus(title, comment, status, today, deadLine);
+				backDao.addTitleWithStatus(title, tNum, comment, status, today, deadLine);
  
 			}
 		}
@@ -125,23 +127,23 @@ public class SurveyBackServiceImpl implements SurveyBackService{
 	        if(tStartLocal.isEqual(today)) {
 	        	
 	        	status = 1;
-				backDao.addTitleWithStatus(title, comment, status, tStartLocal, tEndLocal);
+				backDao.addTitleWithStatus(title, tNum, comment, status, tStartLocal, tEndLocal);
 	        	return new AddTitleResponse("問卷已啟用");
 
 	        	
 	        }
 
-	        else if(tStartLocal.isBefore(today)){
+	        else if(tStartLocal.isBefore(today) || today.isAfter(tEndLocal)){
 	        	
 	        	status = 2;
-				backDao.addTitleWithStatus(title, comment, status, tStartLocal, tEndLocal);
+				backDao.addTitleWithStatus(title, tNum, comment, status, tStartLocal, tEndLocal);
 	        	return new AddTitleResponse("問卷已結束");
 	        }
 
 	        // 開始日期為今日之後: 未開啟
 	        else {
 	        	
-				backDao.addTitleWithStatus(title, comment, status, tStartLocal, tEndLocal);
+				backDao.addTitleWithStatus(title, tNum, comment, status, tStartLocal, tEndLocal);
 	        	return new AddTitleResponse("問卷未開啟");
 
 	        }

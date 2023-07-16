@@ -6,6 +6,8 @@ import com.example.survey_system.vo.AddQuestionRequest;
 import com.example.survey_system.vo.AddQuestionResponse;
 import com.example.survey_system.vo.DeleteQuestionRequest;
 import com.example.survey_system.vo.DeleteQuestionResponse;
+import com.example.survey_system.vo.UpdateQuestionRequest;
+import com.example.survey_system.vo.UpdateQuestionResponse;
 
 public interface BackQuestionService {
 
@@ -13,5 +15,10 @@ public interface BackQuestionService {
 
 	public DeleteQuestionResponse deleteQuestion(DeleteQuestionRequest request);
 	
+	public UpdateQuestionResponse updateQuestion(UpdateQuestionRequest request);
+	
+//	public showAll
 
+	
+	
 }
