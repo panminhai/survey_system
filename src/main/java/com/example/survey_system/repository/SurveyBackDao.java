@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.survey_system.entity.SurveyBack;
+import com.example.survey_system.entity.UserInfo;
 
 @Repository
 public interface SurveyBackDao extends JpaRepository <SurveyBack, Integer>{
@@ -57,6 +58,33 @@ public interface SurveyBackDao extends JpaRepository <SurveyBack, Integer>{
 			@Param("inputETime") LocalDate tEndLocal);
 	
 	public List<SurveyBack> findAll();
+	
+	/*
+	 * 用標題明找對應編號(t_number)	
+	 */
+	@Query(value = "select new SurveyBack(s.t_number) from SurveyBack s " + 
+	"where s.title = :inputTitle")
+	public List<SurveyBack> findTNumberByTitle(
+			@Param("inputTitle") String inputTitle);
+	
+	
+	/*	用t_number查詢寫過問券的填寫人(UserInfo表單) */
+	//	nativeQuery為預設(false): 搜尋(Query)時欄位名以entity為主(取部分資料時也需要專門的建構式)
+	//	建構式(new UserInfo): 在entity內生成一個符合欲取得參數的建構式
+	@Query(value = "select new UserInfo(u.userName, u.write_time) from UserInfo u " + 
+	"where u.t_number = :inputTNum")
+	public List<UserInfo> findWriterSurvey(
+			@Param("inputTNum") int TNum);
+	
+
+	
+	//	用t_number查詢填寫人資訊(user_info表單)
+	//	nativeQuery為預設(false): 欄位名以entity為主
+	//	建構式(new UserInfo): 在entity內生成一個符合欲取得參數的建構式
+//	@Query(value = "select new UserInfo(u.userName, u.phone, u.mail, u.age, u.write_time) from UserInfo u " + 
+//	"where u.t_number = :inputTNum")
+//	public List<UserInfo> findUserInfo(
+//			@Param("inputTNum") int TNum);
 	
 //	問卷開放時，不能刪除題目(survey_question)的Dao
 //	@Query(value = "select start_time, end_time from survey_title")

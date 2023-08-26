@@ -29,16 +29,16 @@ public class UserInfoController {
 	}
 	
 	@PostMapping(value = "show_userInfo")
-	public ShowUserInfoResponse addSdurveyInfo(@RequestBody ShowUserInfoRequest request) {
+	public ShowUserInfoResponse showWriterDate(@RequestBody ShowUserInfoRequest request) {
 		
-		return userInfoService.ShowSurveyInfo(request);
+		return userInfoService.showWriterDate(request);
 	}
 	
 	
-	@PostMapping(value = "show_allInfo")
-	public ShowAllInfoResponse addSsdadurveyInfo(@RequestBody ShowAllInfoRequest request) {
+	@PostMapping(value = "show_writerInfo")
+	public ShowAllInfoResponse showWriterInfo(@RequestBody ShowAllInfoRequest request) {
 		
-		return userInfoService.ShowAllInfo(request);
+		return userInfoService.showWriterInfo(request);
 	}
 	
 

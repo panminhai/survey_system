@@ -55,7 +55,7 @@ public class UserInfoServiceImpl implements UserInfoService{
 
 
 	@Override
-	public ShowUserInfoResponse ShowSurveyInfo(ShowUserInfoRequest request) {
+	public ShowUserInfoResponse showWriterDate(ShowUserInfoRequest request) {
 	
 //		List<UserInfo> feedBack = userDao.findUserNameAndWriteTime();
 		List<UserInfo> feedBack = userDao.findAll();
@@ -81,7 +81,7 @@ public class UserInfoServiceImpl implements UserInfoService{
 
 
 	@Override
-	public ShowAllInfoResponse ShowAllInfo(ShowAllInfoRequest request) {
+	public ShowAllInfoResponse showWriterInfo(ShowAllInfoRequest request) {
 		
 		String userName = request.getUserName();
 		
@@ -92,6 +92,9 @@ public class UserInfoServiceImpl implements UserInfoService{
 		
 		List<String> resAnswer = new ArrayList<>();
 		
+//		裝用"findWriterQuestion"自定義Dao所找到的全部資料(之後改成個別資料取出)
+		List<BackQuestion> writedSurvey = new ArrayList<>();
+		
 		
 		List<UserInfo> res = userDao.finduserInfoByname(userName);
 		
@@ -101,32 +104,42 @@ public class UserInfoServiceImpl implements UserInfoService{
 
 		}
 		
+//		取出填寫人的資訊: 姓名, 號碼 信箱 年齡 填寫日期 
 		for(UserInfo item: res) {
 			
 			String nameInfo = item.getUserName();
 			String phoneInfo = item.getPhone();
 			int ageInfo = item.getAge();
 			String mailInfo = item.getMail();
+
 			LocalDateTime timeInfo = item.getWrite_time();
 			
+//			itemList: 裝入複數以上的結果
 //			----------------------------------------------
 			for(UserInfo itemList: res) {
 				
 				resQuestion.add(itemList.getQuestion());
 				resAnswer.add(itemList.getAnswer());
 				tNumber.add(itemList.getT_number());
-	
-			}
+				System.out.println(itemList.getT_number());
 
-//			-----------------------------------------------
+				List<BackQuestion> resWritedSurvey = userDao.findWriterQuestion(itemList.getT_number());
+				for(BackQuestion itemNum: resWritedSurvey) {
+					
+					writedSurvey.add(itemNum);
 			
-			return new ShowAllInfoResponse(nameInfo, phoneInfo, mailInfo, ageInfo, timeInfo, resQuestion, resAnswer, RtnCode.SUCCESSFUL.getMessage());
-
+				}
+			
+			}
+		
+//			-----------------------------------------------
+					
+			return new ShowAllInfoResponse(nameInfo, phoneInfo, mailInfo, ageInfo, timeInfo, resQuestion, writedSurvey, resAnswer, RtnCode.SUCCESSFUL.getMessage());
+//			return new ShowAllInfoResponse(writedSurvey);
 		}
 		
-		if(CollectionUtils.isEmpty(tNumber)) {
-			
-		}
+		
+		
 		
 		return new ShowAllInfoResponse("good!");
 	}

@@ -3,6 +3,8 @@ package com.example.survey_system.vo;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.example.survey_system.entity.BackQuestion;
+
 public class ShowAllInfoResponse {
 	
 	/*
@@ -23,9 +25,11 @@ public class ShowAllInfoResponse {
 	private LocalDateTime writeTime;
 	
 //	------------------------------------
-//	個人填寫問券紀錄
-	
+//	個人填寫問券紀錄(本資料庫)
 	private List<String> question;
+	
+//	回傳從"BackQuestion"資料庫找到的問券
+	private List<BackQuestion> writedSurvey;
 	
 	private List<String> answer;
 //	--------------------------------------
@@ -45,8 +49,10 @@ public class ShowAllInfoResponse {
 		this.message = message;
 	}
 
+	
+
 	public ShowAllInfoResponse(String userName, String phone, String mail, int age, LocalDateTime writeTime,
-			List<String> question, List<String> answer, String message) {
+			List<String> question, List<BackQuestion> writedSurvey, List<String> answer, String message) {
 		super();
 		this.userName = userName;
 		this.phone = phone;
@@ -54,9 +60,19 @@ public class ShowAllInfoResponse {
 		this.age = age;
 		this.writeTime = writeTime;
 		this.question = question;
+		this.writedSurvey = writedSurvey;
 		this.answer = answer;
 		this.message = message;
 	}
+
+
+	public ShowAllInfoResponse(List<BackQuestion> writedSurvey) {
+		super();
+		this.writedSurvey = writedSurvey;
+	}
+
+
+
 
 	public String getUserName() {
 		return userName;
@@ -116,8 +132,6 @@ public class ShowAllInfoResponse {
 	}
 
 
-
-
 	public void setAnswer(List<String> answer) {
 		this.answer = answer;
 	}
@@ -132,7 +146,27 @@ public class ShowAllInfoResponse {
 
 	public void setMessage(String message) {
 		this.message = message;
-	}	
+	}
+
+
+
+
+	public List<BackQuestion> getWritedSurvey() {
+		return writedSurvey;
+	}
+
+
+
+
+	public void setWritedSurvey(List<BackQuestion> writedSurvey) {
+		this.writedSurvey = writedSurvey;
+	}
+
+
+
+
+	
+	
 	
 	
 	

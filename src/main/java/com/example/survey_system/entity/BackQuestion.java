@@ -46,6 +46,13 @@ public class BackQuestion {
 	}
 
 
+	public BackQuestion(String question, String options) {
+		super();
+		this.question = question;
+		this.options = options;
+	}
+
+
 	public int getNumber() {
 		return number;
 	}

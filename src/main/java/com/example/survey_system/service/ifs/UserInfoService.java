@@ -11,9 +11,12 @@ public interface UserInfoService {
 	
 	public AddUserInfoResponse addSurveyInfo(AddUserInfoRequest request);
 	
-	public ShowUserInfoResponse ShowSurveyInfo(ShowUserInfoRequest request);
+	public ShowUserInfoResponse showWriterDate(ShowUserInfoRequest request);
 	
-	public ShowAllInfoResponse ShowAllInfo(ShowAllInfoRequest request);
+	// γ‘δ: –β™Ι‰ρι^χ”\(“U›lΪΧ‘u), —p“U›l–Ό‹rq	
+	public ShowAllInfoResponse showWriterInfo(ShowAllInfoRequest request);
+	
+	
 	
 	
 }

@@ -1,6 +1,7 @@
 package com.example.survey_system.service.impl;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import org.springframework.util.StringUtils;
 
 import com.example.survey_system.constants.RtnCode;
 import com.example.survey_system.entity.SurveyBack;
+import com.example.survey_system.entity.UserInfo;
 import com.example.survey_system.repository.SurveyBackDao;
 import com.example.survey_system.service.ifs.SurveyBackService;
 import com.example.survey_system.vo.AddTitleRequest;
@@ -22,7 +24,10 @@ import com.example.survey_system.vo.DeleteTitleRequest;
 import com.example.survey_system.vo.DeleteTitleResponse;
 import com.example.survey_system.vo.SearchTitleRequest;
 import com.example.survey_system.vo.SearchTitleResponse;
+import com.example.survey_system.vo.ShowAllInfoResponse;
 import com.example.survey_system.vo.ShowAllResponse;
+import com.example.survey_system.vo.WriterSurveyRequest;
+import com.example.survey_system.vo.WriterSurveyResponse;
 import com.mysql.cj.xdevapi.Result;
 
 
@@ -278,6 +283,57 @@ public class SurveyBackServiceImpl implements SurveyBackService{
 
 		}
 		
+	}
+
+	@Override
+	public WriterSurveyResponse showWriterSurvey(WriterSurveyRequest request) {
+		
+		String surveyTitle = request.getTitle();
+		
+		/*
+		 * 裝問券回饋頁面的全部資料(填寫人, 填寫日期)
+		 */
+		List<UserInfo> writerAndDate = new ArrayList<>();
+//		List<String> userName = new ArrayList<>();
+//		List<LocalDateTime> writeTime = new ArrayList<>();
+		
+		
+		List<SurveyBack> resTNum = backDao.findTNumberByTitle(surveyTitle);	
+		
+		 
+		if(CollectionUtils.isEmpty(resTNum)) {
+			
+			return new WriterSurveyResponse(RtnCode.NOT_FOUND.getMessage());
+			
+		}
+		
+		for(SurveyBack item: resTNum) {
+			
+			int TNum = item.getT_number();
+			
+			/*	用t_number(TNum) 查詢填寫人寫過的問券(survey_question表單) */
+			List<UserInfo> resWriterAndDate = backDao.findWriterSurvey(TNum);
+			
+//			用TNumber找不到填寫人的情況
+			if(CollectionUtils.isEmpty(resWriterAndDate)){
+				
+				return new WriterSurveyResponse(RtnCode.NOT_FOUND.getMessage());
+			}
+			
+			for(UserInfo itemWriter: resWriterAndDate) {
+				
+				writerAndDate.add(itemWriter);	
+
+			}
+			
+			return new WriterSurveyResponse(writerAndDate, RtnCode.SUCCESSFUL.getMessage());
+			
+			
+		}
+		
+		
+		
+		return new WriterSurveyResponse(RtnCode.SUCCESSFUL.getMessage());
 	}
 
 }

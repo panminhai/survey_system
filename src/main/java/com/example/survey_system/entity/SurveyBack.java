@@ -60,10 +60,12 @@ public class SurveyBack {
 		this.start_time = start_time;
 		this.end_time = end_time;
 	}
-
-
 	
-	
+
+	public SurveyBack(int t_number) {
+		super();
+		this.t_number = t_number;
+	}
 
 //	public SurveyBack(String describe) {
 //		super();

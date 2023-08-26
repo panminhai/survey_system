@@ -68,6 +68,12 @@ public class UserInfo {
 	}
 
 
+	public UserInfo(String userName, LocalDateTime write_time) {
+		super();
+		this.userName = userName;
+		this.write_time = write_time;
+	}
+
 	public int getNumber() {
 		return number;
 	}
